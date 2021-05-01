@@ -1,0 +1,528 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "chuck-norris-front",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
+  "projects": {
+    "chuck-norris-front": {
+      "projectType": "application",
+      "root": "apps/chuck-norris-front",
+      "sourceRoot": "apps/chuck-norris-front/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/chuck-norris-front",
+            "index": "apps/chuck-norris-front/src/index.html",
+            "main": "apps/chuck-norris-front/src/main.ts",
+            "polyfills": "apps/chuck-norris-front/src/polyfills.ts",
+            "tsConfig": "apps/chuck-norris-front/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/chuck-norris-front/src/favicon.ico",
+              "apps/chuck-norris-front/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/chuck-norris-front/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/chuck-norris-front/src/environments/environment.ts",
+                  "with": "apps/chuck-norris-front/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "chuck-norris-front:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "chuck-norris-front:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "chuck-norris-front:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/chuck-norris-front/src/**/*.ts",
+              "apps/chuck-norris-front/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/chuck-norris-front"],
+          "options": {
+            "jestConfig": "apps/chuck-norris-front/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "chuck-norris-front-e2e": {
+      "root": "apps/chuck-norris-front-e2e",
+      "sourceRoot": "apps/chuck-norris-front-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/chuck-norris-front-e2e/cypress.json",
+            "tsConfig": "apps/chuck-norris-front-e2e/tsconfig.e2e.json",
+            "devServerTarget": "chuck-norris-front:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "chuck-norris-front:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/chuck-norris-front-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "chuck-bff": {
+      "root": "apps/chuck-bff",
+      "sourceRoot": "apps\\chuck-bff\\src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/chuck-bff",
+            "main": "apps/chuck-bff/src/main.ts",
+            "tsConfig": "apps/chuck-bff/tsconfig.app.json",
+            "assets": ["apps/chuck-bff/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/chuck-bff/src/environments/environment.ts",
+                  "with": "apps/chuck-bff/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "chuck-bff:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/chuck-bff/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/chuck-bff"],
+          "options": {
+            "jestConfig": "apps/chuck-bff/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "material": {
+      "projectType": "library",
+      "root": "libs/material",
+      "sourceRoot": "libs/material/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/material/src/**/*.ts",
+              "libs/material/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/material"],
+          "options": {
+            "jestConfig": "libs/material/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "material-lib": {
+      "projectType": "library",
+      "root": "libs/material-lib",
+      "sourceRoot": "libs/material-lib/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/material-lib/src/**/*.ts",
+              "libs/material-lib/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/material-lib"],
+          "options": {
+            "jestConfig": "libs/material-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "all-categories": {
+      "projectType": "library",
+      "root": "libs/all-categories",
+      "sourceRoot": "libs/all-categories/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/all-categories/src/**/*.ts",
+              "libs/all-categories/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/all-categories"],
+          "options": {
+            "jestConfig": "libs/all-categories/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "modals": {
+      "projectType": "library",
+      "root": "libs/modals",
+      "sourceRoot": "libs/modals/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/modals/src/**/*.ts",
+              "libs/modals/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modals"],
+          "options": {
+            "jestConfig": "libs/modals/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "routes": {
+      "projectType": "library",
+      "root": "libs/routes",
+      "sourceRoot": "libs/routes/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/routes/src/**/*.ts",
+              "libs/routes/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/routes"],
+          "options": {
+            "jestConfig": "libs/routes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "pages": {
+      "projectType": "library",
+      "root": "libs/pages",
+      "sourceRoot": "libs/pages/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/pages/src/**/*.ts",
+              "libs/pages/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/pages"],
+          "options": {
+            "jestConfig": "libs/pages/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "other-imp": {
+      "projectType": "library",
+      "root": "libs/other-imp",
+      "sourceRoot": "libs/other-imp/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/other-imp/src/**/*.ts",
+              "libs/other-imp/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/other-imp"],
+          "options": {
+            "jestConfig": "libs/other-imp/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "projectType": "library",
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/interfaces/src/**/*.ts",
+              "libs/interfaces/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/interfaces"],
+          "options": {
+            "jestConfig": "libs/interfaces/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "page2-lib": {
+      "projectType": "library",
+      "root": "libs/page2-lib",
+      "sourceRoot": "libs/page2-lib/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/page2-lib/src/**/*.ts",
+              "libs/page2-lib/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/page2-lib"],
+          "options": {
+            "jestConfig": "libs/page2-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "page-lib": {
+      "projectType": "library",
+      "root": "libs/page-lib",
+      "sourceRoot": "libs/page-lib/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/page-lib/src/**/*.ts",
+              "libs/page-lib/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/page-lib"],
+          "options": {
+            "jestConfig": "libs/page-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "page1-lib": {
+      "projectType": "library",
+      "root": "libs/page1-lib",
+      "sourceRoot": "libs/page1-lib/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/page1-lib/src/**/*.ts",
+              "libs/page1-lib/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/page1-lib"],
+          "options": {
+            "jestConfig": "libs/page1-lib/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "services": {
+      "projectType": "library",
+      "root": "libs/services",
+      "sourceRoot": "libs/services/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/services/src/**/*.ts",
+              "libs/services/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/services"],
+          "options": {
+            "jestConfig": "libs/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "redux": {
+      "projectType": "library",
+      "root": "libs/redux",
+      "sourceRoot": "libs/redux/src",
+      "prefix": "chuck-norris-front",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/redux/src/**/*.ts",
+              "libs/redux/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/redux"],
+          "options": {
+            "jestConfig": "libs/redux/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  }
+}

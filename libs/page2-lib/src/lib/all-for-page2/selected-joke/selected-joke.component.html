@@ -1,0 +1,17 @@
+<div class="container" *ngIf="selectedJokeChuck">
+  <div class="row">
+    <div class="col">
+      <h6>Date of creation: {{ selectedJokeChuck.created_at }}</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <img src="{{ selectedJokeChuck.icon_url }}" alt="" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h4>Joke: {{ selectedJokeChuck.value }}</h4>
+    </div>
+  </div>
+</div>

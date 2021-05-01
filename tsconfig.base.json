@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@chuck-norris-front/material": ["libs/material/src/index.ts"],
+      "@chuck-norris-front/all-categories": [
+        "libs/all-categories/src/index.ts"
+      ],
+      "@chuck-norris-front/modals": ["libs/modals/src/index.ts"],
+      "@chuck-norris-front/routes": ["libs/routes/src/index.ts"],
+      "@chuck-norris-front/pages": ["libs/pages/src/index.ts"],
+      "@chuck-norris-front/other-imp": ["libs/other-imp/src/index.ts"],
+      "@chuck-norris-front/interfaces": ["libs/interfaces/src/index.ts"],
+      "@chuck-norris-front/page2-lib": ["libs/page2-lib/src/index.ts"],
+      "@chuck-norris-front/page1-lib": ["libs/page1-lib/src/index.ts"],
+      "@chuck-norris-front/services": ["libs/services/src/index.ts"],
+      "@chuck-norris-front/redux": ["libs/redux/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

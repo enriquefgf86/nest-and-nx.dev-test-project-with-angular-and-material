@@ -1,0 +1,19 @@
+<div class="container" *ngIf="modalJoke">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-3" >
+            <h6 *ngIf='modalJoke.categories[0]'> Category: {{modalJoke.categories[0]}}</h6>
+          <h6>Chuck Said:</h6>
+        </div>
+        <div class="col-9">
+          <h6>{{ modalJoke.value }}</h6>
+        </div>
+      </div>
+      <div class="row">
+        <img [src]="modalJoke.icon_url" alt="chuck"/>
+      </div>
+    </div>
+    <button mat-raised-button  (click)='closeModal()'>Close</button>
+    <mat-icon (click)='seeDetails($event)' [id]='modalJoke.id' class="material-icons-outlined">visibility</mat-icon>
+  </div>
+  

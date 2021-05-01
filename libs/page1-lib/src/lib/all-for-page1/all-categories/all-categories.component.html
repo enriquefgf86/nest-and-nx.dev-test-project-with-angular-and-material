@@ -1,0 +1,67 @@
+<div class="container">
+
+    <div class="row">
+      <div class="col-6">
+        <h6>Click For Random Chuck Joke</h6>
+      </div>
+      <div class="col-6">
+        <form [formGroup]="aJokeForm" (submit)="getJokeRandom()">
+          
+          <button type="submit" color='basic' mat-raised-button>Get Joke</button>
+        </form>
+      </div>
+  
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <h6>Select a Category For Chuck Joke</h6>
+      </div>
+      <div class="col-6">
+        <form [formGroup]="aJokeForm" (submit)="getJoke()">
+          <mat-form-field>
+            <mat-label>Categories</mat-label>
+            <mat-select formControlName="categories" placeholder="Categories">
+              <mat-option
+                *ngFor="let category of allCategories"
+                [value]="category"
+                >{{ category }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+          <button type="submit" color='warn' mat-raised-button>Get Joke</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-6">
+        <h6>Search</h6>
+      </div>
+      <div class="col-6">
+        <form  (ngSubmit)="search(value)" action="#">
+          <mat-form-field class="example-form-field">
+            <mat-label>Clearable input</mat-label>
+            <input
+              matInput
+              
+              type="text"
+              [(ngModel)]="value"
+              name='value'
+            />
+            <button
+              mat-button
+              *ngIf="value"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="value = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <button mat-raised-button  color='primary' type='submit' >Go</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

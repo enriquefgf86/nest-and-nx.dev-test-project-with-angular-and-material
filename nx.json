@@ -1,0 +1,35 @@
+{
+  "implicitDependencies": {
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    ".eslintrc.json": "*"
+  },
+  "affected": { "defaultBase": "master" },
+  "npmScope": "chuck-norris-front",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+    }
+  },
+  "projects": {
+    "chuck-norris-front": { "tags": [] },
+    "chuck-norris-front-e2e": {
+      "tags": [],
+      "implicitDependencies": ["chuck-norris-front"]
+    },
+    "chuck-bff": { "tags": [] },
+    "material": { "tags": [] },
+    "material-lib": { "tags": [] },
+    "interfaces": { "tags": [] },
+    "all-categories": { "tags": [] },
+    "modals": { "tags": [] },
+    "routes": { "tags": [] },
+    "pages": { "tags": [] },
+    "other-imp": { "tags": [] },
+    "page2-lib": { "tags": [] },
+    "page-lib": { "tags": [] },
+    "page1-lib": { "tags": [] },
+    "services": { "tags": [] },
+    "redux": { "tags": [] }
+  }
+}
